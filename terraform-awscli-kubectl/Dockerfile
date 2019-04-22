@@ -22,6 +22,7 @@ FROM alpine:latest
 LABEL maintainer "nijohando <mail@nijohando.jp>"
 
 ENV K8S_VERSION=v1.13.4
+ENV HELM_VERSION=v2.13.1
 
 COPY --from=terraform-builder /go/bin/terraform /usr/local/bin
 
@@ -33,6 +34,8 @@ RUN apk --no-cache update && \
     chmod +x /usr/local/bin/kubectl && \
     curl -L -o /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.10.3/2018-07-26/bin/linux/amd64/aws-iam-authenticator && \
     chmod +x /usr/local/bin/aws-iam-authenticator && \
+    curl -L https://storage.googleapis.com/kubernetes-helm/helm-v2.13.1-linux-arm64.tar.gz | tar zx -C /tmp && \
+    cp /tmp/linux-arm64/* /usr/local/bin && \
     mkdir /work
 
 WORKDIR /work
