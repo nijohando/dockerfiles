@@ -6,7 +6,6 @@ RUN apk --no-cache update && \
     pip --no-cache-dir install awscli && \
     rm -rf /var/cache/apk/* && \
     mkdir /work
-COPY ./update-ecs-task-definition.sh /work
-RUN chmod +x /work/update-ecs-task-definition.sh
+COPY ./update-ecs-task-def /usr/local/bin
+RUN chmod +x /usr/local/bin/update-ecs-task-def
 WORKDIR /work
-ENTRYPOINT ["/work/update-ecs-task-definition.sh"]
